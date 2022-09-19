@@ -1,0 +1,58 @@
+Treinamento de dados
+
+"Ola"
+                    => Saudação
+"Como vai você?"
+
+-------------------------------------------
+
+"Tchau"
+                    => Despedida
+"Vejo você depois"
+
+        X                 Y
+
+-------------------------------------------        
+
+Todas as palavras
+["Ola", "Como", "vai", "voce", "tchau", "vejo", "depois"]
+
+Mochila de palavras
+
+"Ola"..............=> [1, 0, 0, 0, 0, 0, 0]
+                                               => 0 (Saudação)  
+"Como vai voce?"...=> [0, 1, 1, 1, 0, 0, 0]
+
+"Tchau"............=> [0, 0, 0, 0, 1, 0, 0]
+                                               => 1 (Despedida)
+"Vejo você depois" => [0, 0, 0, 1, 0, 1, 1]
+
+                    X                                Y
+
+-------------------------------------------
+
+Fundamentos NLP
+
+Tokenização(Tokenization): Dividir a String em unidades significativas
+             (Palavras, sinais de pontuação, numeros)
+
+"O que você vai fazer com 1000000R$?"
+["O", "que" "você", "vai", "fazer", "com", "1000000", "R", "$", "?"]
+
+"Você não esta feliz com essa quantidade de dinheiro?"
+["Você", "não", "esta", "feliz", "com", "essa", "quantidade", "de", "dinheiro", "?"]
+
+Derivação(stemming): Gere a raiz das palavras
+           Heurística bruta que corta as pontas das palavras
+
+"Organizar", "Organiza", "Organizando"
+["Organ", "Organ", "Organ"]
+
+"Universo", "universidade"
+["Univers", "Univers"]
+
+-------------------------------------------
+
+Pipeline de pré-processamento de NLP
+
+"Tem alguem ai?" => Tokenização => ["Tem", "alguem", "ai", "?"] => minuscula + derivação => ["tem", "algu", "ai", "?"] => excluir o caracter pontuado => ["tem", "algu", "ai"] => mochila de palavras => X = [0, 0, 0, 1, 0, 1, 0, 1 ]
