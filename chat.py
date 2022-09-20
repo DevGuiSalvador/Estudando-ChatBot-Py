@@ -24,19 +24,17 @@ modelo.load_state_dict(modelo_estado)
 modelo.eval()
 
 nome_bot = "Arthurito"
-print("Vamos conversar! digite 'sair' para sair")
-while True:
-    sentenca = input('Você: ')
-    if sentenca == "sair":
-        break
 
-    sentenca = tokenizacao(sentenca)
+def get_resposta(msg):
+    
+    sentenca = tokenizacao(msg)
     x = mochila_de_palavras(sentenca, todas_palavras)
     x = x.reshape(1, x.shape[0])
-    x = torch.from_numpy(x)
+    x = torch.from_numpy(x).to(dispositivo)
 
     saida = modelo(x)
     _, predizer = torch.max(saida, dim=1)
+
     acao = acoes[predizer.item()]
 
     probabilidades = torch.softmax(saida, dim=1)
@@ -45,7 +43,21 @@ while True:
     if probabilidade.item() > 0.75:
         for intencao in intencoes["intencoes"]:
             if acao == intencao["acao"]:
-                print(f"{nome_bot}: {random.choice(intencao['respostas'])}")
+                return random.choice(intencao['respostas'])
+    
+    return "Eu não entendi"
 
-    else:
-        print(f"{nome_bot}: Eu não entendi...")
+if __name__ == "__main__":
+    print("Vamos conversar! digite 'sair' para sair")
+    while True:
+        sentenca = input('Você: ')
+        if sentenca == "sair":
+            break
+
+        resp = get_resposta(sentenca)
+        print(resp)
+
+    
+    
+
+    

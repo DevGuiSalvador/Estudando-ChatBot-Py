@@ -1,7 +1,8 @@
+import numpy as np
+import random
 import json
 
 from nltk_utilitarios import tokenizacao, derivacao, mochila_de_palavras
-import numpy as np
 
 import torch
 import torch.nn as nn
